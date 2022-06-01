@@ -1,0 +1,48 @@
+{% extends 'mubApp/base.html' %}
+{% load static %}
+
+{% block content %}
+
+
+
+<div class="table-responsive container mt-5" style="margin-bottom: 200px;">
+
+    <table class="table table-striped table-hover">
+
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Occupation</th>
+                <th>Contribution</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for member in members %}
+
+
+            <tr>
+                <td>{{ member.name }}</td>
+                <td>{{ member.occupation }}</td>
+                <td>{{ member.contribution }}</td>
+                {% if user.is_authenticated %}
+                <td>
+                    <form method="POST" action="{% url 'mubApp:deleteTrustMember' %}">
+                        {% csrf_token %}
+                        <input type="hidden" name="pk" value="{{ member.pk }}">
+                        <input type="submit" class="btn btn-danger btn-sm" value="Delete">
+                        <!-- <input type="submit" value="Submit"> -->
+                    </form>
+                </td>
+                {% endif %}
+            </tr>
+
+            {% endfor %}
+        </tbody>
+    </table>
+
+
+
+</div>
+
+
+{% endblock %}

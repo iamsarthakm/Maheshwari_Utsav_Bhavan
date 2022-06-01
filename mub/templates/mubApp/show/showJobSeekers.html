@@ -1,0 +1,78 @@
+{% extends 'mubApp/admin/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="table-responsive container mt-5" style="margin-bottom: 200px;">
+    <table class="table table-hover">
+
+        <tbody>
+            <tr>
+                <th>Name</th>
+                <td>{{ job.name }}</td>
+            </tr>
+            <tr>
+                <th>Email</th>
+                <td>{{ job.email }}</td>
+            </tr>
+            <tr>
+                <th>Contact</th>
+                <td>{{ job.contact }}</td>
+            </tr>
+            <tr>
+                <th>Gender</th>
+                <td>{{ job.gender }}</td>
+            </tr>
+            <tr>
+                <th>Age</th>
+                <td>{{ job.age }}</td>
+            </tr>
+            <tr>
+                <th>Area of work</th>
+                <td>{{ job.area_of_work}}</td>
+            </tr>
+            <tr>
+                <th>Primary skills</th>
+                <td>{{ job.primary_skills }}</td>
+            </tr>
+            {% if job.current_city %}
+            <tr>
+                <th>Secondary skills</th>
+                <td>{{ job.secondary_skills }}</td>
+            </tr>
+            {% endif %}
+            <tr>
+                <th>Experience</th>
+                <td>{{ job.experience }}</td>
+            </tr>
+            <tr>
+                <th>Current City</th>
+                <td>{{ job.current_city }}</td>
+            </tr>
+            {% if job.upload_resume %}
+            <tr>
+                <th>Resume</th>
+                <td><a href="{{ job.upload_resume.url }}">See Resume</a></td>
+            </tr>
+            {% endif %}
+
+
+
+        </tbody>
+
+
+    </table>
+
+    {% if user.is_authenticated %}
+
+    <form method="POST" action="{% url 'mubApp:deleteJobSeeker' %}">
+        {% csrf_token %}
+        <input type="hidden" name="email" value="{{ job.email }}">
+        <input type="submit" class="btn btn-danger btn-lg" value="Delete">
+
+    </form>
+
+    {% endif %}
+
+</div>
+
+{% endblock %}

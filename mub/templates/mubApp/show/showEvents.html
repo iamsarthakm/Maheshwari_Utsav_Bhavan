@@ -1,0 +1,51 @@
+{% extends 'mubApp/base.html' %}
+
+
+{% load static %}
+
+{% block content %}
+
+<div class="container-fluid">
+
+    <!-- Modal gallery -->
+    <section class="">
+        <!-- Section: Images -->
+        <section class="">
+            <div class="row">
+                <div class="col-lg-12 col-md-12 my-4">
+                    <h1 class="display-3 text-center"><b>{{ event.name }} Gallery</b></h1>
+                    {% if user.is_authenticated %}
+                    <form method="POST" class="text-center" action="{% url 'mubApp:deleteEvent' %}">
+                        {% csrf_token %}
+                        <input type="hidden" name="pk" value="{{ event.pk }}">
+                        <input type="submit" class="btn btn-danger" value="Delete">
+                    </form>
+                    {% endif %}
+                </div>
+                {% for image in event_photos %}
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="bg-image hover-overlay ripple shadow-1-strong rounded" data-ripple-color="light">
+                        <!-- <img src="{{ image.event_photo.url }}" class="w-100"/> -->
+                        <img src="{{ image.event_photo.url }}" class="w-100 img-thumbnail img-fluid" style="height: 350px;"/>
+                        <a href="#!" data-mdb-toggle="modal" data-mdb-target="#exampleModal1">
+                            <div class="mask" style="background-color: rgba(251, 251, 251, 0.2);"></div>
+                        </a>
+                    </div>
+                </div>
+                {% endfor %}
+
+            </div>
+        </section>
+        <!-- Section: Images -->
+
+    </section>
+    <!-- Modal gallery -->
+
+
+
+
+
+</div>
+
+
+{% endblock %}

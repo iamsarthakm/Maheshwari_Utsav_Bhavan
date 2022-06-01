@@ -1,0 +1,40 @@
+{% extends 'mubApp/admin/base.html' %}
+{% load static %}
+
+{% block content %}
+
+{% if not user.is_authenticated %}
+<form class="form-group container col-lg-4 col-sm-12 mt-5 border p-5 rounded" method="post" action="{% url 'mubApp:user_login' %}">
+    {% csrf_token %}
+    {# A more "HTML" way of creating the login form#}
+    
+    <h2>Please Login</h2>
+    <div class="form-group mt-2">
+      <label for="username">Username</label>
+      <input class="form-control" type="text" name="username" placeholder="Username">
+    </div>
+    <div class="form-group mt-2">
+      <label for="password">Password</label>
+      <input class="form-control"type="password" name="password">
+    </div>
+    <button type="submit" class="btn btn-primary mt-2">Login</button>
+  </form>
+
+  {% else %}
+
+  <ul class="list-group mt-5">
+    <li class="list-group-item"> <b> Admin Quick Links </b></li>
+  
+    
+    <a class="list-group-item list-group-item-primary" href="{% url 'mubApp:adminEvents' %}" >Add Events</a>
+    <a class="list-group-item list-group-item-secondary" href="{% url 'mubApp:adminJobs' %}">View Candidates' profiles</a>
+    <a class="list-group-item list-group-item-success" href="{% url 'mubApp:adminMatrimonial' %}">View Matrimonial listings</a>
+    <a class="list-group-item list-group-item-danger" href="{% url 'mubApp:adminTrustMembers' %}">Add Trust Members</a>
+    <a class="list-group-item list-group-item-warning" href="{% url 'mubApp:ads' %}">Add Ad</a>
+  </ul>
+
+{% endif %}
+
+
+
+{% endblock %}

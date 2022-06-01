@@ -1,0 +1,52 @@
+{% extends 'mubApp/admin/base.html' %}
+{% load static %}
+
+{% block content %}
+
+
+<div class="table-responsive container mt-5" style="margin-bottom: 200px;">
+    <table class="table table-striped table-hover">
+
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Contact</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for directory in directorys %}
+
+
+            <tr>
+                <td>{{ directory.name }}</td>
+                <td>{{ directory.contact }}</td>
+                <td>
+                    <form method="POST" action="{% url 'mubApp:showDirectory' %}">
+                        {% csrf_token %}
+                        <input type="hidden" name="pk" value="{{ directory.pk }}">
+                        <input type="submit" class="btn btn-success btn-sm" value="More Info">
+                    </form>
+                </td>
+                {% if user.is_authenticated %}
+                <td>
+                    <form method="POST" action="{% url 'mubApp:deleteDirectory' %}">
+                        {% csrf_token %}
+                        <input type="hidden" name="pk" value="{{ directory.pk }}">
+                        <input type="submit" class="btn btn-danger btn-sm" value="Delete">
+                        <!-- <input type="submit" value="Submit"> -->
+                    </form>
+                </td>
+                {% endif %}
+            </tr>
+
+            {% endfor %}
+        </tbody>
+    </table>
+
+
+
+</div>
+
+
+
+{% endblock %}

@@ -1,0 +1,47 @@
+{% extends "mubApp/base.html" %}
+{% load static %}
+{% block content %}
+
+<div style="background-image: url({% static 'images/mb.jpg' %}); background-size:100%;" class="p-5">
+
+  <div class="row">
+    <div class="form-group container col-lg-4 col-sm-12 border p-5 rounded" style="background:#ffcb0c;">
+      {% if submitted %}
+      <h2 class="mb-3">Thanks for submitting your information. We will contact you upon finding suitable life partner for
+        you.</h2>
+      {% else %}
+  
+      <h2 class="display-6">Matrimonial Form</h2>
+      <form enctype="multipart/form-data" method="POST">
+        {% csrf_token %}
+        {{ form.media }}
+        {{ matrimonial_form.as_p }}
+  
+  
+  
+        <input type="submit" class="btn btn-dark btn-lg mt-1" name="" value="Submit">
+      </form>
+      {% endif %}
+      <a href="{% url 'mubApp:adminMatrimonial' %}">Show Matrimonial</a>
+    </div>
+
+    <div class="col-lg-6 col-sm-12 pt-5">
+      <div class="card text-dark border-warning mb-3" style="max-width: 18rem;">
+        <div class="card-header">Read me</div>
+        <div class="card-body">
+          <h5 class="card-title">How this works?</h5>
+          <p class="card-text">Fill up your matrimonial profile appropriately. Your profile(name and age) can 
+            now be seen by people and admin. We will contact you if we find you a suitable life partner or someone wants to find you.
+          </p>
+          <h5 class="card-title">View Matrimonial Profiles</h5>
+          <a class="btn btn-warning" href="{% url 'mubApp:adminMatrimonial' %}">View</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+
+
+</div>
+{% endblock %}

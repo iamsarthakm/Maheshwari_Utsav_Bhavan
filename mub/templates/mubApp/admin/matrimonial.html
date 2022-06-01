@@ -1,0 +1,60 @@
+{% extends 'mubApp/admin/base.html' %}
+{% load static %}
+
+{% block content %}
+
+<h1 class="display-4 text-center mt-3">Matrimonials</h1>
+
+<div class="table-responsive container mt-5" style="margin-bottom: 200px;">
+
+    <table class="table table-striped table-hover">
+
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Age</th>
+                {% if user.is_authenticated %}
+                <th>Contact</th>
+                {% endif %}
+            </tr>
+        </thead>
+        <tbody>
+            {% for matrimonial in matrimonials %}
+
+
+            <tr>
+                <td>{{ matrimonial.name }}</td>
+                <td>{{ matrimonial.age }}</td>
+                {% if user.is_authenticated %}
+                <td>{{ matrimonial.contact }}</td>
+                {% endif %}
+                {% if user.is_authenticated %}
+                <td>
+                    <form method="POST" action="{% url 'mubApp:showMatrimonial' %}">
+                        {% csrf_token %}
+                        <input type="hidden" name="pk" value="{{ matrimonial.pk }}">
+                        <input type="submit" class="btn btn-success btn-sm" value="More Info">
+                    </form>
+                </td>
+                
+                <td>
+                    <form method="POST" action="{% url 'mubApp:deleteMatrimonial' %}">
+                        {% csrf_token %}
+                        <input type="hidden" name="pk" value="{{ matrimonial.pk }}">
+                        <input type="submit" class="btn btn-danger btn-sm" value="Delete">
+                        <!-- <input type="submit" value="Submit"> -->
+                    </form>
+                </td>
+                {% endif %}
+            </tr>
+
+            {% endfor %}
+        </tbody>
+    </table>
+
+
+
+</div>
+
+
+{% endblock %}

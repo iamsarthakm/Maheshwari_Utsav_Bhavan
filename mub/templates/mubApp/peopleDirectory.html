@@ -1,0 +1,65 @@
+{% extends "mubApp/base.html" %}
+{% load static %}
+{% block content %}
+
+
+<h1 class="display-4 text-center mt-3"> Directory List</h1>
+<nav class="container navbar mt-5">
+    <a href="{% url 'peopleDirectory' %}" class="btn btn-warning">View Directory</a>
+    <div class="container d-flex justify-content-end">
+      <form class="d-flex justify-content-end" action="{% url 'searchDirectory' %}" method="GET">
+        <input class="form-control me-2 col-lg-4 col-sm-12" name="search" type="search" placeholder="Search by name or phone number" aria-label="Search">
+        <button class="btn btn-warning" type="submit">Search</button>
+      </form>
+    </div>
+  </nav>
+
+
+
+
+<div class="table-responsive container mt-2" style="margin-bottom: 200px;">
+
+    <table class="table table-striped table-hover">
+
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Contact</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for directory in directorys %}
+
+
+            <tr>
+                <td>{{ directory.name }}</td>
+                <td>{{ directory.contact }}</td>
+                <td>
+                    <form method="POST" action="{% url 'mubApp:showDirectory' %}">
+                        {% csrf_token %}
+                        <input type="hidden" name="pk" value="{{ directory.pk }}">
+                        <input type="submit" class="btn btn-outline-success btn-sm" value="More Info">
+                    </form>
+                </td>
+                {% if user.is_authenticated %}
+                <td>
+                    <form method="POST" action="{% url 'mubApp:deleteDirectory' %}">
+                        {% csrf_token %}
+                        <input type="hidden" name="pk" value="{{ directory.pk }}">
+                        <input type="submit" class="btn btn-danger btn-sm" value="Delete">
+                        <!-- <input type="submit" value="Submit"> -->
+                    </form>
+                </td>
+                {% endif %}
+            </tr>
+
+            {% endfor %}
+        </tbody>
+    </table>
+
+
+
+</div>
+
+{{ all_search_results }}
+{% endblock %}

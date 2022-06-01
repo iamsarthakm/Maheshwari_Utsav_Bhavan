@@ -1,0 +1,68 @@
+{% extends 'mubApp/admin/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="table-responsive container mt-5" style="margin-bottom: 200px;">
+    <table class="table table-hover">
+
+        <tbody>
+            <tr>
+                <th>Name</th>
+                <td>{{ matrimonial.name }}</td>
+            </tr>
+            <tr>
+                <th>Email</th>
+                <td>{{ matrimonial.email }}</td>
+            </tr>
+            {% if user.is_authenticated %}
+            <tr>
+                <th>Contact</th>
+                <td>{{ matrimonial.contact }}</td>
+            </tr>
+            {% endif %}
+            <tr>
+                <th>Gender</th>
+                <td>{{ matrimonial.gender }}</td>
+            </tr>
+            <tr>
+                <th>Age</th>
+                <td>{{ matrimonial.age }}</td>
+            </tr>
+
+            {% if matrimonial.describe_yourself %}
+            <tr>
+                <th>Description</th>
+                <td>{{ matrimonial.describe_yourself}}</td>
+            </tr>
+            {% endif %}
+            {% if matrimonial.upload_bio_data %}
+            <tr>
+                <th>Bio-data</th>
+                <td><a href="{{ matrimonial.upload_bio_data.url }}">See Bio Data</a></td>
+            </tr>
+            {% endif %}
+            {% if matrimonial.profile_photo %}
+            <tr>
+                <th>Profile Photo</th>
+                <td><img src="{{ matrimonial.profile_photo.url }}" class="img-fluid" style="width: 50rem;"></td>
+            </tr>
+            {% endif %}
+        </tbody>
+
+
+    </table>
+
+    {% if user.is_authenticated %}
+
+    <form method="POST" action="{% url 'mubApp:deleteMatrimonial' %}">
+        {% csrf_token %}
+        <input type="hidden" name="pk" value="{{ matrimonial.pk }}">
+        <input type="submit" class="btn btn-danger btn-lg" value="Delete">
+
+    </form>
+
+    {% endif %}
+
+</div>
+
+{% endblock %}

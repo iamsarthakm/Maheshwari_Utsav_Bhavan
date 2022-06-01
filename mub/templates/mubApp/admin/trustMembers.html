@@ -1,0 +1,21 @@
+{% extends "mubApp/admin/base.html" %}
+{% load static %}
+{% block content %}
+
+<div class="form-group container  col-lg-4 col-sm-12 mt-20 border p-5 rounded">
+  {% if submitted %}
+  <h2 class="mb-3">Trust Member has been added</h2>
+  {% else %}
+    <h2>Add Trust Members</h2>
+    <form enctype="multipart/form-data" method="POST">
+      {% csrf_token %}
+      {{ trust_member_form.as_p }}
+      
+      <input type="submit" class="btn btn-dark btn-lg mt-1" name="" value="Submit">
+    </form>
+{% endif %}
+
+  </div>
+
+
+{% endblock %}

@@ -1,0 +1,70 @@
+{% extends "mubApp/base.html" %}
+{% load static %}
+{% block content %}
+
+
+<div class="container">
+
+    <!-- <div class="row" style="margin-bottom: 350px;">
+        {% for event in events %}
+        <div class="col-lg-4 col-sm-12 my-5 px-1">
+
+            <div class="card" style="width: 23rem;">
+                <img class="card-img-top" src="{{ event.thumbnail.url }}" alt="Card image cap" style="height: 18rem;">
+                <div class="card-body">
+                    <h5 class="card-title">{{ event.name }} held on {{ event.date }}</h5>
+                    <p class="card-text">{{ event.description }}</p>
+                    <form method="POST" action="{% url 'mubApp:showEvent' %}">
+                        {% csrf_token %}
+                        <input type="hidden" name="pk" value="{{ event.pk }}">
+                        <input type="submit" class="btn btn-warning btn-sm" value="Gallery">
+                    </form>
+                </div>
+            </div>
+
+        </div>
+
+        {% endfor %}
+    </div> -->
+
+
+    <div class="row" style="margin-bottom: 350px;">
+        {% for event in events %}
+
+        <div class="card text-white col-lg-4 col-sm-12 my-5 px-1 ml-5" style="width: 23rem; margin-right: 60px;">
+            <img src="{{ event.thumbnail.url }}" class="card-img-top" alt="..." style="height: 18rem;">
+            <div class="card-img-overlay">
+                <h4 class="card-title"><b>{{ event.name }}</b></h4>
+                <p class="card-text"> <b>  held on {{ event.date }}</b></p>
+                <form method="POST" action="{% url 'mubApp:showEvent' %}">
+                    {% csrf_token %}
+                    <input type="hidden" name="pk" value="{{ event.pk }}">
+                    <input type="submit" class="btn btn-light" value="Gallery">
+                </form>
+            </div>
+        </div>
+
+
+        {% endfor %}
+    </div>
+
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+
+{% endblock %}
